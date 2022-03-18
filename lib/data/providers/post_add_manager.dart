@@ -7,6 +7,7 @@ class PostAddManager extends ChangeNotifier{
   bool _didSelectedPage = false;
   Post? _post;
   bool _didHanging = false;
+  int seconds = 5;
 
   Post? get post=>_post;
 
@@ -23,7 +24,7 @@ class PostAddManager extends ChangeNotifier{
   }
   void handle(){
     _didHanging=true;
-    Timer(Duration(seconds: 30), () {
+    Timer(Duration(seconds: seconds), () {
       _didHanging=false;
     },);
   }

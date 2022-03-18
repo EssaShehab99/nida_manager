@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:nida_manager/data/providers/post_add_manager.dart';
+import '../../shared/components/components.dart';
 import '/data/models/help.dart';
 import '/data/models/post.dart';
 import '/data/network/help_dao.dart';
@@ -14,14 +15,18 @@ import '../../data/providers/connect_us_manager.dart';
 import '../../styles/colors.dart';
 
 class PostAdd extends StatefulWidget {
-  const PostAdd({Key? key}) : super(key: key);
+  const PostAdd({Key? key, this.post}) : super(key: key);
 
-  static MaterialPage page() {
-    return const MaterialPage(
+  static MaterialPage page(Post? post) {
+    return MaterialPage(
         name: AppPages.postAddPath,
         key: ValueKey(AppPages.postAddPath),
-        child: PostAdd());
+        child: PostAdd(
+          post: post,
+        ));
   }
+
+  final Post? post;
 
   @override
   State<PostAdd> createState() => _PostAddState();
@@ -30,10 +35,12 @@ class PostAdd extends StatefulWidget {
 class _PostAddState extends State<PostAdd> {
   late TextEditingController detailsController;
   late GlobalKey<FormState> _formKey;
+  bool isAdd = true;
 
   @override
   void initState() {
-    detailsController = TextEditingController();
+    isAdd = widget.post == null;
+    detailsController = TextEditingController(text: widget.post?.details);
     _formKey = GlobalKey();
     super.initState();
   }
@@ -107,16 +114,41 @@ class _PostAddState extends State<PostAdd> {
                                 blurRadius: 5)
                           ]),
                       child: CustomButton(
-                        text: "send".tr(),
+                        text: isAdd ? "send".tr() : "edit".tr(),
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            if(!postAddManager.didHanging) {
-                              postDao.savePost(Post(details: detailsController.text)).whenComplete(() {
-                                snackBarMessage(context,"post-success".tr(),AppColors.green);
-                                postAddManager.handle();
-                              },);
-                            }else {
-                              snackBarMessage(context,"await".tr(),AppColors.primary);
+                            if (!postAddManager.didHanging) {
+                              if (isAdd) {
+                                postDao
+                                    .savePost(
+                                        Post(details: detailsController.text))
+                                    .whenComplete(
+                                  () {
+                                    snackBarMessage(context,
+                                        "post-success".tr(), AppColors.green);
+                                    postAddManager.handle();
+                                  },
+                                );
+                              } else {
+                                postDao
+                                    .editPost(Post(
+                                        id: widget.post!.id,
+                                        details: detailsController.text))
+                                    .whenComplete(
+                                  () {
+                                    snackBarMessage(context,
+                                        "edit-success".tr(), AppColors.green);
+                                    postAddManager.handle();
+                                  },
+                                );
+                              }
+                            } else {
+                              snackBarMessage(
+                                  context,
+                                  "await".tr() +
+                                      " ${postAddManager.seconds} " +
+                                      "second".tr(),
+                                  AppColors.primary);
                             }
                           }
                         },
@@ -132,11 +164,6 @@ class _PostAddState extends State<PostAdd> {
     );
   }
 
-  void snackBarMessage(BuildContext context,String text,Color? color) {
-     ScaffoldMessenger.of(context).showSnackBar(
-     SnackBar(content: Text(text),backgroundColor: color),
-                                );
-  }
 
   TextFormField buildTextFormField(
       {String? hintText,

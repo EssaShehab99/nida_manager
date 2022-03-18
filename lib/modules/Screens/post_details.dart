@@ -1,4 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nida_manager/data/providers/post_add_manager.dart';
+import 'package:provider/provider.dart';
+import '../../data/network/post_dao.dart';
+import '../../shared/components/components.dart';
 import '/constants/constants_values.dart';
 import '/data/models/post.dart';
 import '/data/setting/app_pages.dart';
@@ -21,6 +26,8 @@ class PostDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final postDao = Provider.of<PostDao>(context, listen: false);
+
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -46,6 +53,28 @@ class PostDetails extends StatelessWidget {
                       Share.share(post.details);
                     },
                     icon: Icon(Icons.share, size: 25)),
+              ),
+              Padding(
+                padding:
+                    EdgeInsetsDirectional.only(end: ConstantsValue.padding),
+                child: IconButton(
+                    onPressed: () async {
+                      Provider.of<PostAddManager>(context, listen: false)
+                          .selectedPage(true, post: post);
+                    },
+                    icon: Icon(Icons.edit, size: 25)),
+              ),
+              Padding(
+                padding:
+                    EdgeInsetsDirectional.only(end: ConstantsValue.padding),
+                child: IconButton(
+                    onPressed: () async {
+                      postDao.deletePost(post.id!).whenComplete(() {
+                        snackBarMessage(
+                            context, "delete-success".tr(), AppColors.green);
+                      });
+                    },
+                    icon: Icon(Icons.delete, size: 25)),
               )
             ],
           ),

@@ -58,11 +58,11 @@ class AppRoute extends RouterDelegate<AppLink>
        ...[
           Home.page(),
           if(postDetailsManager.didSelectedPage)
-            PostDetails.page(postDetailsManager.post!)
-          else if(connectUsManager.didSelectedPage)
-            ConnectUs.page()
-          else if(postAddManager.didSelectedPage)
-            PostAdd.page()
+            PostDetails.page(postDetailsManager.post!),
+           if(connectUsManager.didSelectedPage)
+            ConnectUs.page(),
+           if(postAddManager.didSelectedPage)
+            PostAdd.page(postAddManager.post)
         ]
       ],
     );
@@ -91,8 +91,8 @@ class AppRoute extends RouterDelegate<AppLink>
     switch (configuration.location) {
       case AppLink.kHomePath:
         homeManager.selectedPage(true);
-        postDetailsManager.selectedPage(false);
-        connectUsManager.selectedPage(false);
+        // postDetailsManager.selectedPage(false);
+        // connectUsManager.selectedPage(false);
         break;
       case AppLink.kConnectUsPath:
         connectUsManager.selectedPage(true);
@@ -102,7 +102,7 @@ class AppRoute extends RouterDelegate<AppLink>
         postDetailsManager.selectedPage(true, post: postDetailsManager.post);
         break;
       case AppLink.kPostAddPath:
-        postAddManager.selectedPage(true, post: postDetailsManager.post);
+        postAddManager.selectedPage(true, post: postAddManager.post);
         break;
       default:
         break;

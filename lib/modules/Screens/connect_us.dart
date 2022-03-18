@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import '../../shared/components/components.dart';
 import '/data/models/help.dart';
 import '/data/models/post.dart';
 import '/data/network/help_dao.dart';
@@ -156,12 +157,6 @@ class _ConnectUsState extends State<ConnectUs> {
         ),
       ),
     );
-  }
-
-  void snackBarMessage(BuildContext context,String text,Color? color) {
-     ScaffoldMessenger.of(context).showSnackBar(
-     SnackBar(content: Text(text),backgroundColor: color),
-                                );
   }
 
   TextFormField buildTextFormField(
