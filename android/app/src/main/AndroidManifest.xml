@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.essashehab99.nida_manager">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="Nida Manager"
         android:name="${applicationName}"
