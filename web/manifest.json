@@ -1,6 +1,6 @@
 {
-    "name": "nida_manager",
-    "short_name": "nida_manager",
+    "name": "nida",
+    "short_name": "nida",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

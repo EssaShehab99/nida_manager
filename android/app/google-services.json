@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:502605725562:android:dc7d6b4d6190e7dd0e20c3",
+        "mobilesdk_app_id": "1:502605725562:android:82471ecfc5d8b7350e20c3",
         "android_client_info": {
-          "package_name": "com.example.nida"
+          "package_name": "com.essashehab99.nida"
         }
       },
       "oauth_client": [
         {
-          "client_id": "502605725562-hf9d4ecn2f9jiip90q80s4nkiu33mg14.apps.googleusercontent.com",
+          "client_id": "502605725562-upf7cf4tba88m2cv28lqknfpsdlqvgj5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.nida",
+            "package_name": "com.essashehab99.nida",
             "certificate_hash": "fb9de2cfe263b58a9c58d1b528dca856981d32e9"
           }
         },

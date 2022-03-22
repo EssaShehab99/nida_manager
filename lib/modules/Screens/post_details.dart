@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:nida_manager/data/providers/post_add_manager.dart';
+import '/data/providers/post_add_manager.dart';
 import 'package:provider/provider.dart';
 import '../../data/network/post_dao.dart';
 import '../../shared/components/components.dart';

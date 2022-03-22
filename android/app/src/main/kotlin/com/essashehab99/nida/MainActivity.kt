@@ -1,4 +1,4 @@
-package com.example.nida_manager
+package com.essashehab99.nida
 
 import io.flutter.embedding.android.FlutterActivity
 

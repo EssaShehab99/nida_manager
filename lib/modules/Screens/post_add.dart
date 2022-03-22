@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:nida_manager/data/providers/post_add_manager.dart';
+import 'package:http/http.dart'as http;
+import '/data/providers/post_add_manager.dart';
 import '../../shared/components/components.dart';
 import '/data/models/help.dart';
 import '/data/models/post.dart';
@@ -49,6 +52,27 @@ class _PostAddState extends State<PostAdd> {
   void dispose() {
     detailsController.dispose();
     super.dispose();
+  }
+  Future<http.Response> sendNotification(List<String> tokenIdList, String contents, String heading) async{
+
+    return await http.post(
+      Uri.parse('https://onesignal.com/api/v1/notifications'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>
+      {
+        "app_id": "12205d7a-4f7a-48b0-a44c-ade73e73a3a5",
+
+        "include_player_ids": tokenIdList,
+        "android_accent_color":"FF9976D2",
+        "small_icon":"ic_stat_onesignal_default",
+        "large_icon":"https://www.filepicker.io/api/file/zPloHSmnQsix82nlj9Aj?filename=name.jpg",
+        "headings": {"en": "heading"},
+        "contents": {"en": "contents"}
+
+      }),
+    );
   }
 
   @override
@@ -116,6 +140,9 @@ class _PostAddState extends State<PostAdd> {
                       child: CustomButton(
                         text: isAdd ? "send".tr() : "edit".tr(),
                         onTap: () {
+
+                          sendNotification(["7c99fb30-a9df-11ec-b8b6-ea09ba8ac9bf"],"ggggggggggggg","y7htndfg dbdgbdg");
+
                           if (_formKey.currentState!.validate()) {
                             if (!postAddManager.didHanging) {
                               if (isAdd) {

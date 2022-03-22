@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(nida_manager LANGUAGES CXX)
+project(nida LANGUAGES CXX)
 
-set(BINARY_NAME "nida_manager")
+set(BINARY_NAME "nida")
 
 cmake_policy(SET CMP0063 NEW)
 
