@@ -1,4 +1,4 @@
-# nida
+# nida_manager
 
 A new Flutter project.
 

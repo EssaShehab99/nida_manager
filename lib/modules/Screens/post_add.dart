@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
+import 'package:nida_manager/data/network/token_dao.dart';
 import '/data/providers/post_add_manager.dart';
 import '../../shared/components/components.dart';
 import '/data/models/help.dart';
@@ -37,6 +38,7 @@ class PostAdd extends StatefulWidget {
 
 class _PostAddState extends State<PostAdd> {
   late TextEditingController detailsController;
+  late TextEditingController titleController;
   late GlobalKey<FormState> _formKey;
   bool isAdd = true;
 
@@ -44,6 +46,7 @@ class _PostAddState extends State<PostAdd> {
   void initState() {
     isAdd = widget.post == null;
     detailsController = TextEditingController(text: widget.post?.details);
+    titleController = TextEditingController();
     _formKey = GlobalKey();
     super.initState();
   }
@@ -51,26 +54,24 @@ class _PostAddState extends State<PostAdd> {
   @override
   void dispose() {
     detailsController.dispose();
+    titleController.dispose();
     super.dispose();
   }
-  Future<http.Response> sendNotification(List<String> tokenIdList, String contents, String heading) async{
 
+  Future<http.Response> sendNotification(
+      List<String> tokenIdList, String heading, String contents) async {
     return await http.post(
       Uri.parse('https://onesignal.com/api/v1/notifications'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, dynamic>
-      {
+      body: jsonEncode(<String, dynamic>{
         "app_id": "12205d7a-4f7a-48b0-a44c-ade73e73a3a5",
-
         "include_player_ids": tokenIdList,
-        "android_accent_color":"FF9976D2",
-        "small_icon":"ic_stat_onesignal_default",
-        "large_icon":"https://www.filepicker.io/api/file/zPloHSmnQsix82nlj9Aj?filename=name.jpg",
-        "headings": {"en": "heading"},
-        "contents": {"en": "contents"}
-
+        "android_accent_color": "FF9976D2",
+        "small_icon": "@mipmap/ic_launcher_round",
+        "headings": {"en": heading},
+        "contents": {"en": contents}
       }),
     );
   }
@@ -116,6 +117,15 @@ class _PostAddState extends State<PostAdd> {
                     buildTextFormField(
                         textInputAction: TextInputAction.done,
                         context: context,
+                        hintText: 'subject'.tr(),
+                        radius: ConstantsValue.radius * 2,
+                        keyboardType: TextInputType.multiline,
+                        controller: titleController,
+                        maxLines: 1),
+                    SizedBox(height: ConstantsValue.padding,),
+                    buildTextFormField(
+                        textInputAction: TextInputAction.done,
+                        context: context,
                         hintText: 'details'.tr(),
                         radius: ConstantsValue.radius * 2,
                         keyboardType: TextInputType.multiline,
@@ -140,9 +150,6 @@ class _PostAddState extends State<PostAdd> {
                       child: CustomButton(
                         text: isAdd ? "send".tr() : "edit".tr(),
                         onTap: () {
-
-                          sendNotification(["7c99fb30-a9df-11ec-b8b6-ea09ba8ac9bf"],"ggggggggggggg","y7htndfg dbdgbdg");
-
                           if (_formKey.currentState!.validate()) {
                             if (!postAddManager.didHanging) {
                               if (isAdd) {
@@ -151,6 +158,17 @@ class _PostAddState extends State<PostAdd> {
                                         Post(details: detailsController.text))
                                     .whenComplete(
                                   () {
+                                    Provider.of<TokenDao>(context,listen: false)
+                                        .getTokensSnapshot()
+                                        .then((value) {
+                                      List<String> tokenList = [];
+                                      if (value != [])
+                                        value.forEach((element) {
+                                          tokenList.add(element.token!);
+                                        });
+                                      sendNotification(tokenList, titleController.text,
+                                          detailsController.text);
+                                    });
                                     snackBarMessage(context,
                                         "post-success".tr(), AppColors.green);
                                     postAddManager.handle();
@@ -190,7 +208,6 @@ class _PostAddState extends State<PostAdd> {
       ),
     );
   }
-
 
   TextFormField buildTextFormField(
       {String? hintText,

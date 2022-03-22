@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'data/network/help_dao.dart';
 import 'data/network/post_dao.dart';
+import 'data/network/token_dao.dart';
 import 'data/providers/home_manager.dart';
 import 'data/providers/post_add_manager.dart';
 import 'modules/navigation/app_route.dart';
@@ -68,6 +69,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => _postAddManager,),
         ChangeNotifierProvider(create: (context) => PostDao(),),
         ChangeNotifierProvider(create: (context) => HelpDao(),),
+        ChangeNotifierProvider(create: (context) => TokenDao(),),
       ],
       child: Consumer<AppStateManager>(
         builder:(context, value, child){
