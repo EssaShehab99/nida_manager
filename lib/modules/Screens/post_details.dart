@@ -60,7 +60,7 @@ class PostDetails extends StatelessWidget {
                 child: IconButton(
                     onPressed: () async {
                       Provider.of<PostAddManager>(context, listen: false)
-                          .selectedPage(true, post: post);
+                          .selectedPage(true, post: post,operationType: OperationType.EDIT);
                     },
                     icon: Icon(Icons.edit, size: 25)),
               ),

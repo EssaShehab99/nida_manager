@@ -19,19 +19,20 @@ import '../../data/providers/connect_us_manager.dart';
 import '../../styles/colors.dart';
 
 class PostAdd extends StatefulWidget {
-  const PostAdd({Key? key, this.post}) : super(key: key);
+  const PostAdd({Key? key, this.post,required this.operationType}) : super(key: key);
 
-  static MaterialPage page(Post? post) {
+  static MaterialPage page(Post? post,OperationType operationType) {
     return MaterialPage(
         name: AppPages.postAddPath,
         key: ValueKey(AppPages.postAddPath),
         child: PostAdd(
           post: post,
+          operationType: operationType,
         ));
   }
 
   final Post? post;
-
+  final OperationType operationType;
   @override
   State<PostAdd> createState() => _PostAddState();
 }
@@ -40,11 +41,9 @@ class _PostAddState extends State<PostAdd> {
   late TextEditingController detailsController;
   late TextEditingController titleController;
   late GlobalKey<FormState> _formKey;
-  bool isAdd = true;
 
   @override
   void initState() {
-    isAdd = widget.post == null;
     detailsController = TextEditingController(text: widget.post?.details);
     titleController = TextEditingController();
     _formKey = GlobalKey();
@@ -152,11 +151,11 @@ class _PostAddState extends State<PostAdd> {
                                 blurRadius: 5)
                           ]),
                       child: CustomButton(
-                        text: isAdd ? "send".tr() : "edit".tr(),
+                        text: widget.operationType==OperationType.ADD ? "send".tr() : "edit".tr(),
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             if (!postAddManager.didHanging) {
-                              if (isAdd) {
+                              if (widget.operationType==OperationType.ADD) {
                                 postDao
                                     .savePost(
                                         Post(details: detailsController.text))

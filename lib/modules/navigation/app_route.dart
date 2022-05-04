@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../../shared/components/components.dart';
 import '/modules/Screens/post_add.dart';
 import '../../data/providers/post_add_manager.dart';
 import '/modules/navigation/custom_transition_delegate.dart';
@@ -62,7 +63,7 @@ class AppRoute extends RouterDelegate<AppLink>
            if(connectUsManager.didSelectedPage)
             ConnectUs.page(),
            if(postAddManager.didSelectedPage)
-            PostAdd.page(postAddManager.post)
+            PostAdd.page(postAddManager.post,postAddManager.operationType)
         ]
       ],
     );
@@ -102,7 +103,7 @@ class AppRoute extends RouterDelegate<AppLink>
         postDetailsManager.selectedPage(true, post: postDetailsManager.post);
         break;
       case AppLink.kPostAddPath:
-        postAddManager.selectedPage(true, post: postAddManager.post);
+        postAddManager.selectedPage(true, post: postAddManager.post,operationType: postAddManager.operationType);
         break;
       default:
         break;
@@ -124,7 +125,7 @@ class AppRoute extends RouterDelegate<AppLink>
       postDetailsManager.selectedPage(false);
     }
     if (route.settings.name == AppPages.postAddPath) {
-      postAddManager.selectedPage(false);
+      postAddManager.selectedPage(false,operationType: OperationType.None);
     }
     return true;
   }

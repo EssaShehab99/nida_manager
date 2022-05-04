@@ -5,3 +5,4 @@ void snackBarMessage(BuildContext context, String text, Color? color) {
     SnackBar(content: Text(text), backgroundColor: color),
   );
 }
+enum OperationType{ADD,EDIT,None}

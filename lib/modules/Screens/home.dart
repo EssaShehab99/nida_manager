@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../data/providers/post_add_manager.dart';
+import '../../shared/components/components.dart';
 import '/constants/constants_images.dart';
 import '/constants/constants_values.dart';
 import '/data/network/post_dao.dart';
@@ -200,7 +201,7 @@ class Home extends StatelessWidget {
           backgroundColor: AppColors.primary,
           onPressed: (){
             Provider.of<PostAddManager>(context, listen: false)
-                .selectedPage(true);
+                .selectedPage(true,operationType: OperationType.ADD);
 
           },
           child: Icon(Icons.add),
