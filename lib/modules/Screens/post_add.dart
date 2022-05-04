@@ -64,14 +64,18 @@ class _PostAddState extends State<PostAdd> {
       Uri.parse('https://onesignal.com/api/v1/notifications'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Basic YThiOTM5MzYtMDk2NS00NjNlLWE4YzgtNWRkOGYyZThmYWI5',
       },
       body: jsonEncode(<String, dynamic>{
         "app_id": "12205d7a-4f7a-48b0-a44c-ade73e73a3a5",
-        "include_player_ids": tokenIdList,
+        "filters": [
+          {"field": "tag", "key": "key", "relation": "is", "value": "value"},
+        ],
+        "data": {"foo": "bar"},
+        "headings": {"en": heading},
+        "contents": {"en": contents},
         "android_accent_color": "FF9976D2",
         "small_icon": "@mipmap/ic_launcher_round",
-        "headings": {"en": heading},
-        "contents": {"en": contents}
       }),
     );
   }
