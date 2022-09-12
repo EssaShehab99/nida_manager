@@ -1,6 +1,6 @@
 # Nida Admin.
 
-## An application to spread thoughts and supplications
+## An application to spread thoughts and supplications.
 ### video: https://www.behance.net/gallery/144017263/Nida
 #### clint App: https://github.com/EssaShehab99/nida#readme
 
