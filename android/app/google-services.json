@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:502605725562:android:82471ecfc5d8b7350e20c3",
+        "mobilesdk_app_id": "1:502605725562:android:503728db75fcab300e20c3",
         "android_client_info": {
-          "package_name": "com.essashehab99.nida"
+          "package_name": "com.essashehab99.nida2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "502605725562-upf7cf4tba88m2cv28lqknfpsdlqvgj5.apps.googleusercontent.com",
+          "client_id": "502605725562-9ic3gjbabfllje62pd9tmd4le73h6fpj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.essashehab99.nida",
-            "certificate_hash": "fb9de2cfe263b58a9c58d1b528dca856981d32e9"
+            "package_name": "com.essashehab99.nida2",
+            "certificate_hash": "e8c260892c3000144e80fe9e58508a2455f2c528"
           }
         },
         {
@@ -44,9 +44,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:502605725562:android:774877b3904124350e20c3",
+        "mobilesdk_app_id": "1:502605725562:android:1fff0eba68ef0c5f0e20c3",
         "android_client_info": {
-          "package_name": "com.essashehab99.nida_manager"
+          "package_name": "com.essashehab99.nidamanager2"
         }
       },
       "oauth_client": [

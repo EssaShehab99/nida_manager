@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,11 +47,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.essashehab99.nida_manager"
+        applicationId "com.essashehab99.nidamanager2"
         minSdkVersion 23
-        targetSdkVersion 31
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        targetSdkVersion 33
+        compileSdkVersion 33
+        versionCode 3
+        versionName "1.0.2"
     }
     signingConfigs {
         release {
@@ -68,10 +69,15 @@ android {
     }
 }
 
+
 flutter {
     source '../..'
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.android.material:material:1.6.1'
+
 }
